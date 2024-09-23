@@ -1,0 +1,72 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Treker</title>
+    <link rel="stylesheet" href="styles/main.css" />
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <link
+      href="https://fonts.googleapis.com/css2?family=Comfortaa:wght@300..700&display=swap"
+      rel="stylesheet"
+    />
+    <script defer src="./scripts/app.js"></script>
+  </head>
+  <body>
+    <div class="app">
+      <aside class="panel">
+        <div class="logo">
+          <img src="./images/Logomark.svg" alt="logo" />
+          <div>Habbit</div>
+        </div>
+        <nav class="menu">
+          <div class="menu_list">
+            <button class="menu_item menu_item__active">
+              <img src="./images/Group.svg" alt="Гантель" />
+            </button>
+            <button class="menu_item">
+              <img src="./images/Water.svg" alt="Вода" />
+            </button>
+            <button class="menu_item">
+              <img src="./images/Group (1).svg" alt="Еда" />
+            </button>
+          </div>
+          <button class="menu_item menu_add">
+            <img src="./images/Add.svg" alt="Добавить новое" />
+          </button>
+        </nav>
+      </aside>
+      <main class="content">
+        <header class="header">
+          <h1>Отжимания</h1>
+          <div class="progress_bar">
+            <div class="progress_bar__text">
+              <div class="progress_name">Прогресс</div>
+              <div class="progress_percent">80%</div>
+            </div>
+            <div class="progress"><div class="progress__cover"></div></div>
+          </div>
+        </header>
+        <section class="content_section">
+          <div class="day_habbit">
+            <div class="day_number">День 1</div>
+			<div class="hr"></div>
+            <div class="day_content">
+              <div class="comment">Первый подход всегда даётся тяжело</div>
+			  <button class="delete"> <img src="./images/delete.svg" alt="Иконка корзины" /></button>
+            </div>
+          </div>
+          <div class="day_habbit">
+            <div class="day_number">День 2</div>
+			<div class="hr"></div>
+            <div class="day_content">
+              <input class="day_input" placeholder="Комментарий"></input>
+              <button class="ready">Готово</button>
+            </div>
+          </div>
+        </section>
+      </main>
+    </div>
+  </body>
+</html>
