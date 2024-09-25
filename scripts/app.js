@@ -2,22 +2,27 @@
 
 let habbits = [];
 const HABBIT_KEY = "HABBIT_KEY";
+
+/* page */
 const page = {
-  menu: document.querySelector(".menu_list"),
+  menu: document.querySelector(".menu__list"),
   header: {
     h1: document.querySelector(".h1"),
-    progressPercent: document.querySelector(".progress_percent"),
-    progressCover: document.querySelector(".progress__cover"),
+    progressPercent: document.querySelector(".progress__percent"),
+    progressCoverBar: document.querySelector(".progress__cover-bar"),
+  },
+  content: {
+    daysContainer: document.getElementById("days"),
+    nextDay: document.querySelector(".habbit__day"),
   },
 };
 
-// utils
-
+/* utils */
 function loadData() {
   const habbitsString = localStorage.getItem(HABBIT_KEY);
-  const habbitsArray = JSON.parse(habbitsString);
-  if (Array.isArray(habbitsArray)) {
-    habbits = habbitsArray;
+  const habbitArray = JSON.parse(habbitsString);
+  if (Array.isArray(habbitArray)) {
+    habbits = habbitArray;
   }
 }
 
@@ -25,49 +30,79 @@ function saveData() {
   localStorage.setItem(HABBIT_KEY, JSON.stringify(habbits));
 }
 
-// render
+/* render */
 function rerenderMenu(activeHabbit) {
-  if (!activeHabbit) {
-    return;
-  }
   for (const habbit of habbits) {
-    const existed = document.querySelector(`[habbit-id="${habbit.id}"]`);
+    const existed = document.querySelector(`[menu-habbit-id="${habbit.id}"]`);
     if (!existed) {
       const element = document.createElement("button");
-      element.setAttribute("habbit-id", habbit.id);
-      element.classList.add("menu_item");
+      element.setAttribute("menu-habbit-id", habbit.id);
+      element.classList.add("menu__item");
       element.addEventListener("click", () => rerender(habbit.id));
       element.innerHTML = `<img src="./images/${habbit.icon}.svg" alt="${habbit.name}" />`;
       if (activeHabbit.id === habbit.id) {
-        element.classList.add("menu_item__active");
+        element.classList.add("menu__item_active");
       }
       page.menu.appendChild(element);
       continue;
     }
-
     if (activeHabbit.id === habbit.id) {
-      existed.classList.add("menu_item__active");
+      existed.classList.add("menu__item_active");
     } else {
-      existed.classList.remove("menu_item__active");
+      existed.classList.remove("menu__item_active");
     }
   }
 }
 
-function rerenderHeader(activeHabbit) {
+function rerenderHead(activeHabbit) {
   page.header.h1.innerText = activeHabbit.name;
-  const percent = (activeHabbit.days.length * 100) / activeHabbit.target;
-  page.header.progressPercent.innerText = percent.toFixed(0) + '%';
-  page.header.progressCover.setAttribute('style', `width: ${percent}%`)
+  const progress =
+    activeHabbit.days.length / activeHabbit.target > 1
+      ? 100
+      : (activeHabbit.days.length / activeHabbit.target) * 100;
+  page.header.progressPercent.innerText = progress.toFixed(0) + "%";
+  page.header.progressCoverBar.setAttribute("style", `width: ${progress}%`);
+}
+
+function rerenderContent(activeHabbit) {
+  page.content.daysContainer.innerHTML = "";
+  for (const index in activeHabbit.days) {
+    const element = document.createElement("div");
+    element.classList.add("habbit");
+    element.innerHTML = `<div class="habbit__day">День ${
+      Number(index) + 1
+    }</div>
+              <div class="habbit__comment">${
+                activeHabbit.days[index].comment
+              }</div>
+              <button class="habbit__delete">
+                <img src="./images/delete.svg" alt="Удалить день ${
+                  index + 1
+                }" />
+              </button>`;
+    page.content.daysContainer.appendChild(element);
+  }
+  page.content.nextDay.innerHTML = `День ${activeHabbit.days.length + 1}`;
 }
 
 function rerender(activeHabbitId) {
   const activeHabbit = habbits.find((habbit) => habbit.id === activeHabbitId);
+  if (!activeHabbit) {
+    return;
+  }
   rerenderMenu(activeHabbit);
-  rerenderHeader(activeHabbit);
+  rerenderHead(activeHabbit);
+  rerenderContent(activeHabbit);
 }
 
-// init
+/* work with days */
+function addDays(event) {
+  event.preventDefault();
+  const data = new FormData(event.target);
+  console.log(data.get("comment"));
+}
 
+/* init */
 (() => {
   loadData();
   rerender(habbits[0].id);
