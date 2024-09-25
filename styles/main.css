@@ -133,10 +133,10 @@ body {
 }
 
 .progress__cover {
-  width: 80%;
   height: 5px;
   background-color: #5051f9;
   border-radius: 4px;
+  transition: all 1s;
 }
 
 /* days */
@@ -153,25 +153,20 @@ body {
   display: flex;
   width: 100%;
   justify-content: center;
-  height: 54px;
-}
-
-.hr {
-  width: 1px;
-  color: #e7ebfb;
+  align-items: center;
 }
 
 .day_number {
   font-size: 14px;
   font-weight: 500;
   background: #fbfaff;
-  padding: 15px 30px;
-  border-top-left-radius: 10px;
-  border-bottom-left-radius: 10px;
+  padding: 20px 40px;
+  border-radius: 10px 0 0 10px;
   width: 10%;
   display: flex;
   justify-content: center;
   align-items: center;
+  border-right: 1px solid #e7ebfb;
 }
 
 .day_content {
@@ -182,12 +177,13 @@ body {
   width: 90%;
   border-top-right-radius: 10px;
   border-bottom-right-radius: 10px;
+  height: 55px;
 }
 
 .comment {
   font-size: 16px;
   font-weight: 500;
-  padding: 15px;
+  padding: 20px 25px;
   color: #23235f;
   width: 100%;
 }
@@ -207,20 +203,23 @@ body {
 .day_input {
   border-radius: 9px;
   border: 1px solid #e7ebfb;
-  padding: 10px 10px 10px 35px;
-  margin: 5.5px 0px 5.5px 10px;
+  padding: 12px 10px 12px 45px;
+  margin: 5.5px 0px 5.5px 25px;
   background-image: url("../images/Vector.svg");
   background-size: 18px;
   background-repeat: no-repeat;
-  background-position: 10px center;
+  background-position: 15px center;
   width: 100%;
+}
+
+.day_input::placeholder {
+  color: #8899a8;
 }
 
 .ready {
   background: #edecfe;
   border-radius: 9px;
-  width: 120px;
-  height: 39px;
+  padding: 14px 30px;
   margin: 5px 10px;
   border: none;
   color: #5051f9;
@@ -230,4 +229,5 @@ body {
 
 .ready:hover {
   cursor: pointer;
+  background: #b9b8dd;
 }
